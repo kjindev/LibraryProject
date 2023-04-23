@@ -39,17 +39,9 @@ body {
 }
 
 #select::-webkit-scrollbar-thumb {
-  background-color: #dbeafe;
+  background-color: #93c5fd;
 }
 
 #select::-webkit-scrollbar-track {
   background-color: #dbeafe;
-}
-
-#select option {
-  background: #dbeafe;
-}
-
-#select {
-  border-color: #dbeafe;
 }

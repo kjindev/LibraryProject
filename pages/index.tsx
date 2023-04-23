@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-interface APIType {
+interface DataType {
   ADRES: string;
   FDRM_CLOSE_DATE: string;
   LBRRY_NAME: string;
@@ -42,7 +42,7 @@ export default function Home({
     "강동구",
   ];
 
-  const [list, setList] = useState<APIType[]>([]);
+  const [list, setList] = useState<DataType[]>([]);
   const [name, setName] = useState("중구");
   const [modalVisible, setModalVisible] = useState(false);
   const [listData, setListData] = useState<(string | undefined)[]>(
@@ -50,7 +50,7 @@ export default function Home({
   );
 
   useEffect(() => {
-    let arr: any = [];
+    let arr: DataType[] = [];
     for (let i = 0; i < data.length; i++) {
       if (data[i].CODE_VALUE === name) {
         arr.push(data[i]);
@@ -89,6 +89,10 @@ export default function Home({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="kjin" />
         <meta
+          property="og:url"
+          content="https://seoul-library-info-project.vercel.app/"
+        />
+        <meta
           name="description"
           content="서울시 도서관, 도서관 운영시간 정보"
         />
@@ -99,6 +103,10 @@ export default function Home({
           content="https://images.unsplash.com/photo-1622517806764-c3c9db0053fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
         />
         <meta property="og:image:alt" content="도서관 이미지" />
+        <meta
+          property="og:description"
+          content="서울시 도서관 운영시간을 확인해보세요."
+        />
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="ko_KR" />
       </Head>
@@ -107,7 +115,7 @@ export default function Home({
           📖 서울시 도서관 운영시간 안내 📖
         </div>
         {modalVisible && (
-          <div className="z-[1] fixed w-[50%] h-[70vh] rounded-md bg-white drop-shadow-md flex flex-col">
+          <div className="z-[1] fixed w-[80%] md:w-[50%] h-[70vh] rounded-md bg-white drop-shadow-md flex flex-col">
             <div
               onClick={() => setModalVisible(false)}
               className="p-3 px-5 hover:cursor-pointer self-end"
@@ -118,7 +126,9 @@ export default function Home({
               {listData[0] && (
                 <div className="text-xl font-bold m-2">{listData[0]}</div>
               )}
-              {listData[1] && <div className="m-2">{listData[1]}</div>}
+              {listData[1] && (
+                <div className="m-2 text-center">주소 | {listData[1]}</div>
+              )}
               {listData[2] && <div className="m-2">휴관일 | {listData[2]}</div>}
               {listData[3] && <div className="m-2">TEL | {listData[3]}</div>}
             </div>
@@ -135,7 +145,10 @@ export default function Home({
             </option>
           ))}
         </select>
-        <div id="scroll" className="w-[30%] h-[50vh] overflow-y-scroll">
+        <div
+          id="scroll"
+          className="w-[80%] md:w-[50%] lg:w-[30%] h-[50vh] overflow-y-scroll"
+        >
           <div className="text-center" onClick={handleOption}>
             {list.map((item) => (
               <div
@@ -162,14 +175,14 @@ export const getServerSideProps: GetServerSideProps = async () => {
       `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_API_KEY}/json/SeoulLibraryTimeInfo/1/700`
     )
   ).json();
-  const data: APIType = await results.SeoulLibraryTimeInfo.row;
+  const data: DataType = await results.SeoulLibraryTimeInfo.row;
 
   const results2 = await (
     await fetch(
       `http://openapi.seoul.go.kr:8088/${process.env.NEXT_PUBLIC_API_KEY}/json/SeoulLibraryTimeInfo/701/1485`
     )
   ).json();
-  const data2: APIType = await results2.SeoulLibraryTimeInfo.row;
+  const data2: DataType = await results2.SeoulLibraryTimeInfo.row;
 
   return {
     props: {

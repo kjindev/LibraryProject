@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 서울시 도서관 이용시간 안내
 
-## Getting Started
+서울시 도서관 이용시간을 안내해주는 웹 사이트입니다.
 
-First, run the development server:
+✔ **웹 사이트 소개**
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- 서울시 도서관 이용시간을 안내해주는 웹 사이트입니다.
+- 검색 엔진 최적화(SEO) 구현을 위해 제작되었습니다.
+- PC와 모바일 모두에서 이용할 수 있는 반응형 웹 페이지입니다.
+- 배포 Page : https://seoul-library-info-project.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✔ **개요**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 개발 인원 : 1인 (개인 프로젝트)
+- 개발 기간 : 2023.04.
+- 개발 목적 : Next.js로 검색 엔진 최적화 구현
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+✔ **사용 기술**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+| 기술         | 사용한 이유                                                                            |
+| ------------ | -------------------------------------------------------------------------------------- |
+| TypeScript   | JavaScript와 달리, 타입을 지정하여 에러를 사전에 방지할 수 있기 때문에 사용하였습니다. |
+| Next.js      | SSR을 이용하여 검색엔진 최적화를 구현하기 위해 사용하였습니다.                         |
+| Tailwind CSS | 기존의 CSS보다 효율적이고 반응형 디자인이 간편하다는 장점이 있어 사용하였습니다.       |
 
-## Learn More
+✔ **기능**
 
-To learn more about Next.js, take a look at the following resources:
+- **구 선택 후 리스트 클릭**
+  - 리스트를 클릭하면 도서관 운영시간 정보에 대해 확인할 수 있습니다.
+  - [pages/index.tsx](https://github.com/kjindev/LibraryProject/blob/main/pages/index.tsx)에 해당 코드가 작성되어 있습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✔ **검색엔진 최적화**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js의 getServerSideProps를 사용하여 API 데이터를 서버에서 미리 렌더링하였습니다. html 문서에 데이터를 미리 렌더링하여 SEO에 유리합니다.
+- Next.js의 Head 태그를 이용하여 meta 태그를 삽입하였습니다. og 태그를 이용하여 SNS에 링크가 공유될 때 미리보기가 표시될 수 있도록 하였습니다.
